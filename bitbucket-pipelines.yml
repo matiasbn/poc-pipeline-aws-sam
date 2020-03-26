@@ -45,10 +45,10 @@ deployS3AwsScript: &deployS3AwsScript
       script:
         - pipe: atlassian/aws-sam-deploy:0.3.2
           variables:
-            AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
-            AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
-            AWS_DEFAULT_REGION: $AWS_REGION
-            S3_BUCKET: $AWS_BUCKET_NAME
+            AWS_ACCESS_KEY_ID: '$AWS_ACCESS_KEY_ID'
+            AWS_SECRET_ACCESS_KEY: '$AWS_SECRET_ACCESS_KEY'
+            AWS_DEFAULT_REGION: '$AWS_REGION'
+            S3_BUCKET: '$AWS_BUCKET_NAME'
             STACK_NAME: stack"_"$APPLICATION_ENVIRONMENT"_"$(date +%Y%m%d_%H%M%S)"_"$BITBUCKET_BUILD_NUMBER
             SAM_TEMPLATE: 'template.yml'
             CAPABILITIES: ['CAPABILITY_IAM', 'CAPABILITY_AUTO_EXPAND']
