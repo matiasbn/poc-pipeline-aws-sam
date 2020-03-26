@@ -7,7 +7,7 @@ const setResponse = (state, message) => {
   products = require("../services/materials/pim.services"),
   productsSoap = require("../services/materials/soap.services"),
   { login } = require("../services/soap/client.service"),
-  defaultStores = JSON.parse(process.env.DEFAULT_STORE);
+  defaultStores = process.env.DEFAULT_STORE ? JSON.parse(process.env.DEFAULT_STORE) : {};
 
 let productsResult = []
 
