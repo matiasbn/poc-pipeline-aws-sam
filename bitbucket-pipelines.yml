@@ -6,12 +6,12 @@ infoStep: &infoStep
       script:
         - node --version
         - npm --version
+        - aws --version
 prepareStep: &prepareStep
   - step:
       name: Prepare
       script:
         - npm install
-        - aws --version
       artifacts:
         - node_modules/**
 sonarStep: &sonarStep
@@ -20,9 +20,6 @@ sonarStep: &sonarStep
       script:
         - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.2.0.1873.zip
         - unzip ./sonar-scanner-cli-4.2.0.1873.zip
-        - export PATH=$PATH:/sonar-scanner-4.2.0.1873/bin/
-        - echo $PATH
-        - sonar-scanner -v
         - chmod +x sonar-scanner-4.2.0.1873/bin/sonar-scanner
         - sonar-scanner-4.2.0.1873/bin/sonar-scanner -Dsonar.exclusions=sonar-scanner-4.2.0.1873.zip,sonar-scanner-4.2.0.1873/**/*,vendor/**/* -Dsonar.login=admin -Dsonar.password=admin -Dsonar.projectKey=sonar -Dsonar.projectName=sonar -Dsonar.projectVersion=1.0 -Dsonar.sources=.  -Dsonar.host.url=http://54.174.170.210:9000 -Dsonar.sourceEncoding=UTF-8 -Dsonar.analysis.mode=publish 
         - echo "http://54.174.170.210:9000/dashboard/index/sonar"
@@ -58,11 +55,12 @@ deployS3AwsScript: &deployS3AwsScript
 pipelines:    
   branches:
     develop:
-      #- <<: *infoStep
-      #- <<: *prepareStep
+      - <<: *infoStep
+      - <<: *prepareStep
       - <<: *sonarStep
-      #- <<: *securityStep
-      #- <<: *buildStep
+      - <<: *securityStep
+      - <<: *buildStep
+      - <<: *deployS3AwsScript
     test:
       - <<: *infoStep
       - <<: *prepareStep
