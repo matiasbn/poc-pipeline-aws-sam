@@ -1,0 +1,88 @@
+image: lambci/lambda:build-nodejs12.x
+
+infoStep: &infoStep
+  - step:
+      name: Info
+      script:
+        - node --version
+        - npm --version
+
+prepareStep: &prepareStep
+  - step:
+      name: Prepare
+      script:
+        - npm install
+        - apt-get update && apt-get install -y awscli
+        - aws --version
+      artifacts:
+        - node_modules/**
+sonarStep: &so sonarStep
+  - step:
+      name: Sonar Scanner
+      script:
+        - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.2.0.1873.zip
+        - unzip ./sonar-scanner-cli-4.2.0.1873-linux.zip
+        - export PATH=$PATH:/sonar-scanner-4.2.0.1873-linux/bin/
+        - chmod +x sonar-scanner-4.2.0.1873/bin/sonar-scanner
+        - sonar-scanner -Dsonar.exclusions=sonar-scanner-4.2.0.1873.zip,sonar-scanner-4.2.0.1873/**/*,vendor/**/* -Dsonar.login=admin -Dsonar.password=admin -Dsonar.projectKey=sonar -Dsonar.projectName=sonar -Dsonar.projectVersion=1.0 -Dsonar.sources=.  -Dsonar.host.url=http://54.174.170.210:9000 -Dsonar.sourceEncoding=UTF-8 -Dsonar.analysis.mode=publish 
+        - echo "http://54.174.170.210:9000/dashboard/index/sonar"
+
+      artifacts:
+        - node_modules/**
+
+securityStep: &securityStep
+  - step:
+      name: Security
+      script:
+        - npm audit
+        - npm run test
+
+buildStep: &buildStep
+  - step:
+      name: Build
+      script:
+        - npm run build
+      artifacts:
+        - dist/**
+        - build/**
+
+deployS3AwsScript: &deployS3AwsScript
+  script:
+    - pipe: atlassian/aws-sam-deploy:0.3.2
+      variables:
+        AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+        AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+        AWS_DEFAULT_REGION: $AWS_REGION
+        S3_BUCKET: $AWS_BUCKET_NAME
+        STACK_NAME: "stack"_"$APPLICATION_ENVIRONMENT"_"$(date +%Y%m%d_%H%M%S)"_"$BITBUCKET_BUILD_NUMBER
+        SAM_TEMPLATE: 'template.yml'
+        CAPABILITIES: ['CAPABILITY_IAM', 'CAPABILITY_AUTO_EXPAND']
+        COMMAND: 'deploy-only'
+pipelines:    
+  branches:
+    develop:
+      - <<: *infoStep
+      - <<: *prepareStep
+      - <<: *securityStep
+      #- <<: *buildStep
+    test:
+      - <<: *infoStep
+      - <<: *prepareStep
+      - <<: *securityStep
+      #- <<: *buildStep
+      - step:
+          name: Deploy to test
+          trigger: manual
+          deployment: test
+          <<: *deployS3AwsScript
+    master:
+      - <<: *infoStep
+      - <<: *prepareStep
+      - <<: *securityStep
+      #- <<: *buildStep
+      - step:
+          name: Deploy to production
+          trigger: manual
+          deployment: production
+          <<: *deployS3AwsScript
+ 

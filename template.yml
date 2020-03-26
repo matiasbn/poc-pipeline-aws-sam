@@ -45,7 +45,7 @@ Resources:
       Runtime: nodejs10.x
       MemorySize: 128
       Timeout: 100
-      Description: A simple example includes a HTTP get method to get all items from a DynamoDB table.
+      Description: Get stock materials bulk.
       #Policies:
         # Give Create/Read/Update/Delete Permissions to the SampleTable
         #- DynamoDBCrudPolicy:
@@ -60,10 +60,10 @@ Resources:
   # https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
 
   # This is a Lambda function config associated with the source code: get-by-id.js
-  getByStoreIdFunction:
+  getStockByStoreIdFunction:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: src/handlers/get-by-store-id.getByStoreIdHandler
+      Handler: src/handlers/get-stock-by-store-id.getStockByStoreIdHandler
       Runtime: nodejs10.x
       MemorySize: 128
       Timeout: 100
@@ -81,11 +81,11 @@ Resources:
   # Each Lambda function is defined by properties:
   # https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
 
-  # This is a Lambda function config associated with the source code: put-item.js
-  putItemFunction:
+  # This is a Lambda function config associated with the source code: get-stock-materials-queue.js
+  getStockMaterialsQueueFunction:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: src/handlers/put-item.putItemHandler
+      Handler: src/handlers/get-stock-materials-queue.getStockMaterialsQueueHandler
       Runtime: nodejs10.x
       MemorySize: 128
       Timeout: 100
@@ -107,16 +107,33 @@ Resources:
   # Simple syntax to create a DynamoDB table with a single attribute primary key, more in
   # https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlesssimpletable
 
-  # DynamoDB table to store item: {id: &lt;ID&gt;, name: &lt;NAME&gt;}
-  SampleTable:
-    Type: AWS::Serverless::SimpleTable
+  SimpleQueue:
+    Type: AWS::SQS::Queue
+  
+  # This is the Lambda function definition associated with the source code: sqs-payload-logger.js. For all available properties, see
+  # https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+  getStockByMaterialQueueFunction:
+    Type: AWS::Serverless::Function
     Properties:
-      PrimaryKey:
-        Name: id
-        Type: String
-      ProvisionedThroughput:
-        ReadCapacityUnits: 2
-        WriteCapacityUnits: 2
+      Description: A Lambda function that sent products to an associated SQS queue.
+      Runtime: nodejs10.x
+      Handler: src/handlers/get-stock-by-material-queue.getStockByMaterialQueueHandler
+      # This property associates this Lambda function with the SQS queue defined above, so that whenever the queue
+      # receives a message, the Lambda function is invoked
+      Environment:
+        Variables:
+          WS_SECONDS_BULK_LOAD_RETRY : 10000
+          WS_MAX_REQUEST_ATTEMPTS : 3
+      Events:
+        SQSQueueEvent:
+          Type: SQS
+          Properties:
+            Queue: arn:aws:sqs:us-west-2:963487713769:poc_masisa_products_queue
+      MemorySize: 128
+      Timeout: 25 # Chosen to be less than the default SQS Visibility Timeout of 30 seconds
+      Policies:
+        # Give Lambda basic execution Permission to the helloFromLambda
+        - AWSLambdaBasicExecutionRole
 
 Outputs:
   WebEndpoint:

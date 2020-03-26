@@ -3,13 +3,8 @@ let response, productsResult = [], count = 0;
 const AWS = require('aws-sdk');
 const queueUrl = process.env.QUEUEE_URL,
  sqs = new AWS.SQS({region:'eu-west-2'}),
- products = require("../services/products/pim.services"),
- defaultStores = {
-  '3001110001': { center: 'PC12', venue: 'ALPR', org: 'CL61' },
-  '3001110008': { center: 'PC08', venue: 'ALPR', org: 'CL61' },
-  '3001110003': { center: 'PC02', venue: 'ALPR', org: 'CL61' } 
-};
-
+ products = require("../services/materials/pim.services"),
+ defaultStores = process.env.DEFAULT_STORE ? JSON.parse(process.env.DEFAULT_STORE) : {};
 /**
  * A simple example includes a HTTP get method to get one item by id from a DynamoDB table.
  */
@@ -34,12 +29,12 @@ const sendMessage = (msg) => {
 exports.getStockMaterialsQueueHandler = async (event, context) => {
   try {
     await products.authWithPassword();
-    const skusByStore = await products.getMassLoadProducts();
+    const skusByStore = await products.getMaterialsByStore();
     //TODO: only for tes with the first store
-    const [stores] = Object.keys(skusByStore)
+    const [stores] = Object.keys(skusByStore).filter(current => defaultStores[current] != null)
     //TODO: Splice to test firt 5
     for (let sku of skusByStore[stores].slice(0, 5)) {
-      const skuSoap = await products.getProductBySKU(stores, sku)
+      const skuSoap = await products.getMaterialsBySKU(stores, sku)
       const defaultStore = {...defaultStores[stores], sku: skuSoap || sku}
       productsResult.push(defaultStore)
 

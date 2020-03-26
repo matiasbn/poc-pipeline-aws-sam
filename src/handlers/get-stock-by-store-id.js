@@ -16,10 +16,10 @@ console.log("Loading")
 /**
  * Get Materials Stock from SOAP AND PIM one Store.
  */
-exports.getByStoreIdHandler = async (event) => {
+exports.getStockByStoreIdHandler = async (event) => {
   const date = new Date()
   console.info("Init date", date)
-  console.info("Into getByStoreIdHandler")
+  console.info("Into getStockByStoreIdHandler")
   if (event.httpMethod !== 'GET') {
     throw new Error(`getMethod only accept GET method, you tried: ${event.httpMethod}`);
   }

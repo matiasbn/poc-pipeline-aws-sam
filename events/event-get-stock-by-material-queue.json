@@ -1,0 +1,3 @@
+{   "httpMethod": "POST",
+    "products": "[{\"center\":\"PC12\",\"venue\":\"ALPR\",\"org\":\"CL61\",\"sku\":\"10077336\"},{\"center\":\"PC12\",\"venue\":\"ALPR\",\"org\":\"CL61\",\"sku\":\"10125222\"},{\"center\":\"PC12\",\"venue\":\"ALPR\",\"org\":\"CL61\",\"sku\":\"10125253\"},{\"center\":\"PC12\",\"venue\":\"ALPR\",\"org\":\"CL61\",\"sku\":\"10125256\"},{\"center\":\"PC12\",\"venue\":\"ALPR\",\"org\":\"CL61\",\"sku\":\"10125265\"}]"
+}
