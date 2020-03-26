@@ -6,7 +6,6 @@ infoStep: &infoStep
       script:
         - node --version
         - npm --version
-        - aws --version
 prepareStep: &prepareStep
   - step:
       name: Prepare
