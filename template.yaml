@@ -1,0 +1,141 @@
+# This is the SAM template that represents the architecture of your serverless application
+# https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-template-basics.html
+
+# The AWSTemplateFormatVersion identifies the capabilities of the template
+# https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/format-version-structure.html
+AWSTemplateFormatVersion: 2010-09-09
+Description: >-
+  masisa-materials-stock
+
+# Transform section specifies one or more macros that AWS CloudFormation uses to process your template
+# https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/transform-section-structure.html
+Transform:
+- AWS::Serverless-2016-10-31
+
+Globals:
+  Function:
+    Environment:
+      Variables:
+        # Make table name accessible as environment variable from function code during execution
+        WS_URL: '{{resolve:ssm:WS_URL:1}}'
+        WS_USER : '{{resolve:ssm:WS_USER:1}}'
+        WS_PASSWORD : '{{resolve:ssm:WS_PASSWORD:1}}'
+        WS_SECONDS_BULK_LOAD_RETRY : '{{resolve:ssm:WS_SECONDS_BULK_LOAD_RETRY:1}}'
+        WS_MAX_REQUEST_ATTEMPTS : '{{resolve:ssm:WS_MAX_REQUEST_ATTEMPTS:1}}'
+        PIM_URL : '{{resolve:ssm:PIM_URL:1}}'
+        PIM_USERNAME : '{{resolve:ssm:PIM_USERNAME:1}}'
+        PIM_PASSWORD : '{{resolve:ssm:PIM_PASSWORD:1}}'
+        PIM_CLIENT_ID : '{{resolve:ssm:PIM_CLIENT_ID:1}}'
+        PIM_SECRET : '{{resolve:ssm:PIM_SECRET:1}}'
+        QUEUEE_URL : '{{resolve:ssm:QUEUEE_URL:1}}'
+        INTERV_TO_QUEUE: '{{resolve:ssm:INTERV_TO_QUEUE:1}}'
+        DEFAULT_STORE: '{{resolve:ssm:DEFAULT_STORE:1}}'
+
+# Resources declares the AWS resources that you want to include in the stack
+# https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html
+Resources:
+  # Each Lambda function is defined by properties:
+  # https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+
+  # This is a Lambda function config associated with the source code: get-stock-materials.js
+  getStockMaterialsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/handlers/get-stock-materials.getStockMaterialsHandler
+      Runtime: nodejs10.x
+      MemorySize: 128
+      Timeout: 100
+      Description: Get stock materials bulk.
+      #Policies:
+        # Give Create/Read/Update/Delete Permissions to the SampleTable
+        #- DynamoDBCrudPolicy:
+            #TableName: !Ref SampleTable
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /
+            Method: GET
+  # Each Lambda function is defined by properties:
+  # https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+
+  # This is a Lambda function config associated with the source code: get-by-id.js
+  getStockByStoreIdFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/handlers/get-stock-by-store-id.getStockByStoreIdHandler
+      Runtime: nodejs10.x
+      MemorySize: 128
+      Timeout: 100
+      Description: A simple example includes a HTTP get method to get one item by id from a DynamoDB table.
+      # Policies:
+      #   # Give Create/Read/Update/Delete Permissions to the SampleTable
+      #   - DynamoDBCrudPolicy:
+      #       TableName: !Ref SampleTable
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /{store}
+            Method: GET
+  # Each Lambda function is defined by properties:
+  # https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+
+  # This is a Lambda function config associated with the source code: get-stock-materials-queue.js
+  getStockMaterialsQueueFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/handlers/get-stock-materials-queue.getStockMaterialsQueueHandler
+      Runtime: nodejs10.x
+      MemorySize: 128
+      Timeout: 100
+      Description: A simple example includes a HTTP post method to add one item to a DynamoDB table.
+      Policies:
+        # Give Create/Read/Update/Delete Permissions to the SampleTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref SampleTable
+      Environment:
+        Variables:
+          # Make table name accessible as environment variable from function code during execution
+          SAMPLE_TABLE: !Ref SampleTable
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /
+            Method: POST
+  # Simple syntax to create a DynamoDB table with a single attribute primary key, more in
+  # https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlesssimpletable
+
+  SimpleQueue:
+    Type: AWS::SQS::Queue
+  
+  # This is the Lambda function definition associated with the source code: sqs-payload-logger.js. For all available properties, see
+  # https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+  getStockByMaterialQueueFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Description: A Lambda function that sent products to an associated SQS queue.
+      Runtime: nodejs10.x
+      Handler: src/handlers/get-stock-by-material-queue.getStockByMaterialQueueHandler
+      # This property associates this Lambda function with the SQS queue defined above, so that whenever the queue
+      # receives a message, the Lambda function is invoked
+      Environment:
+        Variables:
+          WS_SECONDS_BULK_LOAD_RETRY : 10000
+          WS_MAX_REQUEST_ATTEMPTS : 3
+      Events:
+        SQSQueueEvent:
+          Type: SQS
+          Properties:
+            Queue: arn:aws:sqs:us-west-2:963487713769:poc_masisa_products_queue
+      MemorySize: 128
+      Timeout: 25 # Chosen to be less than the default SQS Visibility Timeout of 30 seconds
+      Policies:
+        # Give Lambda basic execution Permission to the helloFromLambda
+        - AWSLambdaBasicExecutionRole
+
+Outputs:
+  WebEndpoint:
+    Description: "API Gateway endpoint URL for Prod stage"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
