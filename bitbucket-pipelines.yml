@@ -16,7 +16,7 @@ prepareStep: &prepareStep
         - aws --version
       artifacts:
         - node_modules/**
-sonarStep: &so sonarStep
+sonarStep: &sonarStep
   - step:
       name: Sonar Scanner
       script:
@@ -63,6 +63,7 @@ pipelines:
     develop:
       - <<: *infoStep
       - <<: *prepareStep
+      - <<: *sonarStep
       - <<: *securityStep
       #- <<: *buildStep
     test:
