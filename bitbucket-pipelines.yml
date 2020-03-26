@@ -27,7 +27,7 @@ securityStep: &securityStep
   - step:
       name: Security
       script:
-        - npm install npm@10.15.0 -g
+        - npm install npm@latest -g
         - npm audit
         - npm run test
 buildStep: &buildStep
