@@ -59,7 +59,7 @@ pipelines:
       - <<: *infoStep
       - <<: *prepareStep
       - <<: *sonarStep
-     # - <<: *securityStep
+      - <<: *securityStep
      # - <<: *buildStep
       - <<: *deployS3AwsScript
     test:
