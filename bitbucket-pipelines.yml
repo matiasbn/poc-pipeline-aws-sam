@@ -4,7 +4,6 @@ infoStep: &infoStep
   - step:
       name: Info
       script:
-        - npm install npm@latest -g
         - node --version
         - npm --version
 prepareStep: &prepareStep
@@ -28,9 +27,9 @@ securityStep: &securityStep
   - step:
       name: Security
       script:
-        - npm audit
-        - npm run test
-
+        - pipe: node:10.15.0
+          - npm audit
+          - npm run test
 buildStep: &buildStep
   - step:
       name: Build
