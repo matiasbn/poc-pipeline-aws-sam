@@ -1,4 +1,4 @@
-image: lambci/lambda:build-nodejs12.x
+image: atlassian/default-image:2
 
 infoStep: &infoStep
   - step:
@@ -56,10 +56,10 @@ deployS3AwsScript: &deployS3AwsScript
 pipelines:    
   branches:
     develop:
-      - <<: *infoStep
-      - <<: *prepareStep
+      #- <<: *infoStep
+      #- <<: *prepareStep
       - <<: *sonarStep
-      - <<: *securityStep
+      #- <<: *securityStep
       #- <<: *buildStep
     test:
       - <<: *infoStep
