@@ -1,5 +1,5 @@
 // Import all functions from get-all-items.js 
-const lambda = require('../../../src/handlers/get-by-material-id.js'); 
+const lambda = require('../../../src/handlers/get-stock-by-store-id.js'); 
  
 // This includes all tests for getStockMaterialsHandler() 
 describe('Test getStockMaterialsHandler', () => { 
