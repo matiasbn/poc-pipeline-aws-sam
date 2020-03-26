@@ -1,4 +1,4 @@
-image: lambci/lambda:build-nodejs12.x
+image: ajrrac/alpine-node-awscli-ebcli:latest
 
 infoStep: &infoStep
   - step:
@@ -6,12 +6,13 @@ infoStep: &infoStep
       script:
         - node --version
         - npm --version
+        - echo $PATH
+        - apt-get update && apt-get install -y awscli && apt-get install -y wget && apt-get install -y zip
 
 prepareStep: &prepareStep
   - step:
       name: Prepare
       script:
-        - find /usr/bin -name "apt-get"
         - apt-get update && apt-get install -y awscli && apt-get install -y wget && apt-get install -y zip
         - npm install
         - aws --version
@@ -64,9 +65,9 @@ pipelines:
   branches:
     develop:
       - <<: *infoStep
-      - <<: *prepareStep
-      - <<: *sonarStep
-      - <<: *securityStep
+      #- <<: *prepareStep
+      #- <<: *sonarStep
+      #- <<: *securityStep
       #- <<: *buildStep
     test:
       - <<: *infoStep
