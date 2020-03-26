@@ -1,4 +1,4 @@
-image: atlassian/default-image:2
+image: lambci/lambda:build-nodejs12.x
 
 infoStep: &infoStep
   - step:
@@ -17,9 +17,13 @@ prepareStep: &prepareStep
 sonarStep: &sonarStep
   - step:
       name: Sonar Scanner
-      pipe: sonarsource/sonar-scanner-cli:latest
-        script:
-          - sonar-scanner -v
+      script:
+        - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.2.0.1873.zip
+        - unzip ./sonar-scanner-cli-4.2.0.1873-linux.zip
+        - export PATH=$PATH:/sonar-scanner-4.2.0.1873-linux/bin/
+        - chmod +x sonar-scanner-4.2.0.1873/bin/sonar-scanner
+        - sonar-scanner -Dsonar.exclusions=sonar-scanner-4.2.0.1873.zip,sonar-scanner-4.2.0.1873/**/*,vendor/**/* -Dsonar.login=admin -Dsonar.password=admin -Dsonar.projectKey=sonar -Dsonar.projectName=sonar -Dsonar.projectVersion=1.0 -Dsonar.sources=.  -Dsonar.host.url=http://54.174.170.210:9000 -Dsonar.sourceEncoding=UTF-8 -Dsonar.analysis.mode=publish 
+        - echo "http://54.174.170.210:9000/dashboard/index/sonar"
 
 securityStep: &securityStep
   - step:
