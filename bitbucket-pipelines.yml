@@ -4,13 +4,13 @@ infoStep: &infoStep
   - step:
       name: Info
       script:
+        - npm install npm@latest -g
         - node --version
         - npm --version
 prepareStep: &prepareStep
   - step:
       name: Prepare
       script:
-        - npm install npm@latest -g
         - npm install
       artifacts:
         - node_modules/**
