@@ -27,9 +27,9 @@ securityStep: &securityStep
   - step:
       name: Security
       script:
-        - pipe: node:10.15.0
-          - npm audit
-          - npm run test
+        - npm install npm@10.15.0 -g
+        - npm audit
+        - npm run test
 buildStep: &buildStep
   - step:
       name: Build
