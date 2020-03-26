@@ -1,4 +1,4 @@
-image: ajrrac/alpine-node-awscli-ebcli:latest
+image: atlassian/default-image
 
 infoStep: &infoStep
   - step:
@@ -6,8 +6,6 @@ infoStep: &infoStep
       script:
         - node --version
         - npm --version
-        - echo $PATH
-        - apt-get update && apt-get install -y awscli && apt-get install -y wget && apt-get install -y zip
 
 prepareStep: &prepareStep
   - step:
@@ -65,9 +63,9 @@ pipelines:
   branches:
     develop:
       - <<: *infoStep
-      #- <<: *prepareStep
-      #- <<: *sonarStep
-      #- <<: *securityStep
+      - <<: *prepareStep
+      - <<: *sonarStep
+      - <<: *securityStep
       #- <<: *buildStep
     test:
       - <<: *infoStep
