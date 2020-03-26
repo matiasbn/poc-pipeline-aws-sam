@@ -12,7 +12,7 @@ prepareStep: &prepareStep
       name: Prepare
       script:
         - npm install
-        - apt-get update && apt-get install -y awscli
+        - apt-get update && apt-get install -y awscli && apt-get install -y wget
         - aws --version
       artifacts:
         - node_modules/**
