@@ -11,7 +11,7 @@ prepareStep: &prepareStep
   - step:
       name: Prepare
       script:
-        - export PATH=$PATH:/usr/bin/ 
+        - find /usr/bin -name "apt-get"
         - apt-get update && apt-get install -y awscli && apt-get install -y wget && apt-get install -y zip
         - npm install
         - aws --version
