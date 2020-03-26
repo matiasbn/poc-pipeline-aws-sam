@@ -1,4 +1,4 @@
-image: lambci/lambda:build-nodejs12.x
+image: atlassian/default-image:2
 
 infoStep: &infoStep
   - step:
@@ -18,8 +18,8 @@ sonarStep: &sonarStep
   - step:
       name: Sonar Scanner
       pipe: sonarsource/sonar-scanner-cli:latest
-      script:
-        - sonar-scanner -v
+        script:
+          - sonar-scanner -v
 
 securityStep: &securityStep
   - step:
