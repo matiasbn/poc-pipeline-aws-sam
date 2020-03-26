@@ -42,7 +42,7 @@ buildStep: &buildStep
 
 deployS3AwsScript: &deployS3AwsScript
   - step:
-        name: deployS3AwsScript
+      name: deployS3AwsScript
     script:
       - pipe: atlassian/aws-sam-deploy:0.3.2
         variables:
