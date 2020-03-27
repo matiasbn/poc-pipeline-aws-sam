@@ -11,47 +11,47 @@ Parameters:
     WS_URL: 
         Description: 'Required. The Database username'
         Type: 'AWS::SSM::Parameter::Value<String>'
-        Default: 'MyDatabaseUsername'
-    WS_USER : 
+        Default: ''
+    WS_USER: 
         Description: 'Required. The Database username'
         Type: 'AWS::SSM::Parameter::Value<String>'
-        Default: 'MyDatabaseUsername'
-    WS_PASSWORD : 
+        Default: ''
+    WS_PASSWORD: 
         Description: 'Required. The Database username'
         Type: 'AWS::SSM::Parameter::Value<String>'
-        Default: 'MyDatabaseUsername'
-    WS_SECONDS_BULK_LOAD_RETRY : 
+        Default: ''
+    WS_SECONDS_BULK_LOAD_RETRY: 
         Description: 'Required. The Database username'
         Type: 'AWS::SSM::Parameter::Value<String>'
         Default: '10000'
-    WS_MAX_REQUEST_ATTEMPTS : 
+    WS_MAX_REQUEST_ATTEMPTS: 
         Description: 'Required. The Database username'
         Type: 'AWS::SSM::Parameter::Value<String>'
         Default: '3'
-    PIM_URL : 
+    PIM_URL: 
         Description: 'Required. The Database username'
         Type: 'AWS::SSM::Parameter::Value<String>'
-        Default: 'MyDatabaseUsername'
-    PIM_USERNAME : 
+        Default: ''
+    PIM_USERNAME: 
         Description: 'Required. The Database username'
         Type: 'AWS::SSM::Parameter::Value<String>'
-        Default: 'MyDatabaseUsername'
-    PIM_PASSWORD : 
+        Default: ''
+    PIM_PASSWORD: 
         Description: 'Required. The Database username'
         Type: 'AWS::SSM::Parameter::Value<String>'
-        Default: 'MyDatabaseUsername'
-    PIM_CLIENT_ID : 
+        Default: ''
+    PIM_CLIENT_ID: 
         Description: 'Required. The Database username'
         Type: 'AWS::SSM::Parameter::Value<String>'
-        Default: 'MyDatabaseUsername'
-    PIM_SECRET : 
+        Default: ''
+    PIM_SECRET: 
         Description: 'Required. The Database username'
         Type: 'AWS::SSM::Parameter::Value<String>'
-        Default: 'MyDatabaseUsername'
-    QUEUEE_URL : 
+        Default: ''
+    QUEUEE_URL: 
         Description: 'Required. The Database username'
         Type: 'AWS::SSM::Parameter::Value<String>'
-        Default: 'MyDatabaseUsername'
+        Default: ''
     INTERV_TO_QUEUE: 
         Description: 'Required. The Database username'
         Type: 'AWS::SSM::Parameter::Value<String>'
