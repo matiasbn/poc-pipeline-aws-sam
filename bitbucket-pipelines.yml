@@ -47,6 +47,7 @@ deployS3AwsScript: &deployS3AwsScript
           variables:
             S3_BUCKET: $AWS_BUCKET_NAME
             STACK_NAME: 'my-stack-name'
+            CAPABILITIES: ['CAPABILITY_IAM', 'CAPABILITY_AUTO_EXPAND']
 pipelines:    
   branches:
     develop:
