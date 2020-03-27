@@ -92,12 +92,12 @@ Resources:
       Description: A simple example includes a HTTP post method to add one item to a DynamoDB table.
       Policies:
         # Give Create/Read/Update/Delete Permissions to the SampleTable
-        - DynamoDBCrudPolicy:
-            TableName: !Ref SampleTable
-      Environment:
-        Variables:
+        #- DynamoDBCrudPolicy:
+        #    TableName: !Ref SampleTable
+      #Environment:
+       # Variables:
           # Make table name accessible as environment variable from function code during execution
-          SAMPLE_TABLE: !Ref SampleTable
+       #   SAMPLE_TABLE: !Ref SampleTable
       Events:
         Api:
           Type: Api
