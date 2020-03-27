@@ -90,7 +90,7 @@ Resources:
       MemorySize: 128
       Timeout: 100
       Description: A simple example includes a HTTP post method to add one item to a DynamoDB table.
-      Policies:
+      #Policies:
         # Give Create/Read/Update/Delete Permissions to the SampleTable
         #- DynamoDBCrudPolicy:
         #    TableName: !Ref SampleTable
