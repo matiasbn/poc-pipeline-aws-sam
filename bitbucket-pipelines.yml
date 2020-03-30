@@ -46,7 +46,7 @@ deployS3AwsScript: &deployS3AwsScript
         - pipe: atlassian/aws-sam-deploy:0.3.2
           variables:
             S3_BUCKET: $AWS_BUCKET_NAME
-            STACK_NAME: stack"_"$APPLICATION_ENVIRONMENT"_"$(date +%Y%m%d_%H%M%S)"_"$BITBUCKET_BUILD_NUMBER
+            STACK_NAME: stack-masisa-test
             WAIT: 'true'
             WAIT_INTERVAL: 60
             CAPABILITIES: ['CAPABILITY_IAM', 'CAPABILITY_AUTO_EXPAND']
