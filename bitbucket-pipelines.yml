@@ -50,55 +50,6 @@ deployS3AwsScript: &deployS3AwsScript
             WAIT: 'true'
             WAIT_INTERVAL: 60
             CAPABILITIES: ['CAPABILITY_IAM', 'CAPABILITY_AUTO_EXPAND']
-            STACK_PARAMETERS: >
-              [{
-                "ParameterKey": "WS_URL",
-                "ParameterValue": "mykey"
-              },
-              {
-                "ParameterKey": "WS_USER",
-                "ParameterValue": "mydbuser"
-              },
-              {
-                "ParameterKey": "WS_PASSWORD",
-                "ParameterValue": "mydbuser"
-              },
-              {
-                "ParameterKey": "WS_SECONDS_BULK_LOAD_RETRY",
-                "ParameterValue": "10000"
-              },
-              {
-                "ParameterKey": "WS_MAX_REQUEST_ATTEMPTS",
-                "ParameterValue": "3"
-              },
-              {
-                "ParameterKey": "PIM_URL",
-                "ParameterValue": ""
-              },
-              {
-                "ParameterKey": "PIM_USERNAME",
-                "ParameterValue": "mykey"
-              },
-              {
-                "ParameterKey": "PIM_CLIENT_ID",
-                "ParameterValue": "mydbuser"
-              },
-              {
-                "ParameterKey": "PIM_SECRET",
-                "ParameterValue": ""
-              },
-               {
-                "ParameterKey": "QUEUEE_URL",
-                "ParameterValue": "mydbuser"
-              },
-              {
-                "ParameterKey": "INTERV_TO_QUEUE",
-                "ParameterValue": "5"
-              },
-               {
-                "ParameterKey": "DEFAULT_STORE",
-                "ParameterValue": ""
-                }]
 pipelines:    
   branches:
     develop:
