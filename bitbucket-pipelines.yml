@@ -97,15 +97,14 @@ deployS3AwsScript: &deployS3AwsScript
               },
                {
                 "ParameterKey": "DEFAULT_STORE",
-                "ParameterValue": "{\"3001110001\":{\"center\":\"PC12\",\"venue\":\"ALPR\",\"org\":\"CL61\"},\"3001110003\":{\"center\":\"PC02\",\"venue\":\"ALPR\",\"org\":\"CL61\"},\"3001110008\":{\"center\":\"PC08\",\"venue\":\"ALPR\",\"org\":\"CL61\"}}"
-              }]
+                "ParameterValue": ""]
 pipelines:    
   branches:
     develop:
-      - <<: *infoStep
-      - <<: *prepareStep
-      - <<: *sonarStep
-      - <<: *securityStep
+      #- <<: *infoStep
+      #- <<: *prepareStep
+      #- <<: *sonarStep
+      #- <<: *securityStep
      # - <<: *buildStep
       - <<: *deployS3AwsScript
     test:
