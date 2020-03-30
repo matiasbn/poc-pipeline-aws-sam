@@ -97,7 +97,8 @@ deployS3AwsScript: &deployS3AwsScript
               },
                {
                 "ParameterKey": "DEFAULT_STORE",
-                "ParameterValue": ""]
+                "ParameterValue": ""
+                }]
 pipelines:    
   branches:
     develop:
