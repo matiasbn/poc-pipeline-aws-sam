@@ -6,59 +6,6 @@ AWSTemplateFormatVersion: 2010-09-09
 Description: >-
   masisa-materials-stock
 
-# Parameters:
-#     WS_URL: 
-#         Description: 'Required. The Database username'
-#         Type: 'AWS::SSM::Parameter::Value<String>'
-#         Default: ''
-#     WS_USER: 
-#         Description: 'Required. The Database username'
-#         Type: 'AWS::SSM::Parameter::Value<String>'
-#         Default: ''
-#     WS_PASSWORD: 
-#         Description: 'Required. The Database username'
-#         Type: 'AWS::SSM::Parameter::Value<String>'
-#         Default: ''
-#     WS_SECONDS_BULK_LOAD_RETRY: 
-#         Description: 'Required. The Database username'
-#         Type: 'AWS::SSM::Parameter::Value<String>'
-#         Default: '10000'
-#     WS_MAX_REQUEST_ATTEMPTS: 
-#         Description: 'Required. The Database username'
-#         Type: 'AWS::SSM::Parameter::Value<String>'
-#         Default: '3'
-#     PIM_URL: 
-#         Description: 'Required. The Database username'
-#         Type: 'AWS::SSM::Parameter::Value<String>'
-#         Default: ''
-#     PIM_USERNAME: 
-#         Description: 'Required. The Database username'
-#         Type: 'AWS::SSM::Parameter::Value<String>'
-#         Default: ''
-#     PIM_PASSWORD: 
-#         Description: 'Required. The Database username'
-#         Type: 'AWS::SSM::Parameter::Value<String>'
-#         Default: ''
-#     PIM_CLIENT_ID: 
-#         Description: 'Required. The Database username'
-#         Type: 'AWS::SSM::Parameter::Value<String>'
-#         Default: ''
-#     PIM_SECRET: 
-#         Description: 'Required. The Database username'
-#         Type: 'AWS::SSM::Parameter::Value<String>'
-#         Default: ''
-#     QUEUEE_URL: 
-#         Description: 'Required. The Database username'
-#         Type: 'AWS::SSM::Parameter::Value<String>'
-#         Default: 'MyDatabaseUsername'
-#     INTERV_TO_QUEUE: 
-#         Description: 'Required. The Database username'
-#         Type: 'AWS::SSM::Parameter::Value<String>'
-#         Default: '5'
-#     DEFAULT_STORE: 
-#         Description: 'Required. The Database username'
-#         Type: 'AWS::SSM::Parameter::Value<String>'
-#         Default: ''
 # Transform section specifies one or more macros that AWS CloudFormation uses to process your template
 # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/transform-section-structure.html
 Transform:
@@ -180,8 +127,7 @@ Resources:
         SQSQueueEvent:
           Type: SQS
           Properties:
-            Queue: arn:aws:sqs:us-west-2:963487713769:poc_masisa_products_queue
-      MemorySize: 128
+            Queue: arn:aws:sqs:us-east-1:175877319468:poc_masisa_products_queue
       Timeout: 25 # Chosen to be less than the default SQS Visibility Timeout of 30 seconds
       Policies:
         # Give Lambda basic execution Permission to the helloFromLambda
