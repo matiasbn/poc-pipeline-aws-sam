@@ -6,59 +6,59 @@ AWSTemplateFormatVersion: 2010-09-09
 Description: >-
   masisa-materials-stock
 
-Parameters:
-    WS_URL: 
-        Description: 'Required. The Database username'
-        Type: 'AWS::SSM::Parameter::Value<String>'
-        Default: ''
-    WS_USER: 
-        Description: 'Required. The Database username'
-        Type: 'AWS::SSM::Parameter::Value<String>'
-        Default: ''
-    WS_PASSWORD: 
-        Description: 'Required. The Database username'
-        Type: 'AWS::SSM::Parameter::Value<String>'
-        Default: ''
-    WS_SECONDS_BULK_LOAD_RETRY: 
-        Description: 'Required. The Database username'
-        Type: 'AWS::SSM::Parameter::Value<String>'
-        Default: '10000'
-    WS_MAX_REQUEST_ATTEMPTS: 
-        Description: 'Required. The Database username'
-        Type: 'AWS::SSM::Parameter::Value<String>'
-        Default: '3'
-    PIM_URL: 
-        Description: 'Required. The Database username'
-        Type: 'AWS::SSM::Parameter::Value<String>'
-        Default: ''
-    PIM_USERNAME: 
-        Description: 'Required. The Database username'
-        Type: 'AWS::SSM::Parameter::Value<String>'
-        Default: ''
-    PIM_PASSWORD: 
-        Description: 'Required. The Database username'
-        Type: 'AWS::SSM::Parameter::Value<String>'
-        Default: ''
-    PIM_CLIENT_ID: 
-        Description: 'Required. The Database username'
-        Type: 'AWS::SSM::Parameter::Value<String>'
-        Default: ''
-    PIM_SECRET: 
-        Description: 'Required. The Database username'
-        Type: 'AWS::SSM::Parameter::Value<String>'
-        Default: ''
-    QUEUEE_URL: 
-        Description: 'Required. The Database username'
-        Type: 'AWS::SSM::Parameter::Value<String>'
-        Default: 'MyDatabaseUsername'
-    INTERV_TO_QUEUE: 
-        Description: 'Required. The Database username'
-        Type: 'AWS::SSM::Parameter::Value<String>'
-        Default: '5'
-    DEFAULT_STORE: 
-        Description: 'Required. The Database username'
-        Type: 'AWS::SSM::Parameter::Value<String>'
-        Default: ''
+# Parameters:
+#     WS_URL: 
+#         Description: 'Required. The Database username'
+#         Type: 'AWS::SSM::Parameter::Value<String>'
+#         Default: ''
+#     WS_USER: 
+#         Description: 'Required. The Database username'
+#         Type: 'AWS::SSM::Parameter::Value<String>'
+#         Default: ''
+#     WS_PASSWORD: 
+#         Description: 'Required. The Database username'
+#         Type: 'AWS::SSM::Parameter::Value<String>'
+#         Default: ''
+#     WS_SECONDS_BULK_LOAD_RETRY: 
+#         Description: 'Required. The Database username'
+#         Type: 'AWS::SSM::Parameter::Value<String>'
+#         Default: '10000'
+#     WS_MAX_REQUEST_ATTEMPTS: 
+#         Description: 'Required. The Database username'
+#         Type: 'AWS::SSM::Parameter::Value<String>'
+#         Default: '3'
+#     PIM_URL: 
+#         Description: 'Required. The Database username'
+#         Type: 'AWS::SSM::Parameter::Value<String>'
+#         Default: ''
+#     PIM_USERNAME: 
+#         Description: 'Required. The Database username'
+#         Type: 'AWS::SSM::Parameter::Value<String>'
+#         Default: ''
+#     PIM_PASSWORD: 
+#         Description: 'Required. The Database username'
+#         Type: 'AWS::SSM::Parameter::Value<String>'
+#         Default: ''
+#     PIM_CLIENT_ID: 
+#         Description: 'Required. The Database username'
+#         Type: 'AWS::SSM::Parameter::Value<String>'
+#         Default: ''
+#     PIM_SECRET: 
+#         Description: 'Required. The Database username'
+#         Type: 'AWS::SSM::Parameter::Value<String>'
+#         Default: ''
+#     QUEUEE_URL: 
+#         Description: 'Required. The Database username'
+#         Type: 'AWS::SSM::Parameter::Value<String>'
+#         Default: 'MyDatabaseUsername'
+#     INTERV_TO_QUEUE: 
+#         Description: 'Required. The Database username'
+#         Type: 'AWS::SSM::Parameter::Value<String>'
+#         Default: '5'
+#     DEFAULT_STORE: 
+#         Description: 'Required. The Database username'
+#         Type: 'AWS::SSM::Parameter::Value<String>'
+#         Default: ''
 # Transform section specifies one or more macros that AWS CloudFormation uses to process your template
 # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/transform-section-structure.html
 Transform:
@@ -69,19 +69,19 @@ Globals:
     Environment:
       Variables:
         # Make table name accessible as environment variable from function code during execution
-        WS_URL: !Ref WS_URL
-        WS_USER : !Ref WS_USER
-        WS_PASSWORD : !Ref WS_PASSWORD
-        WS_SECONDS_BULK_LOAD_RETRY : !Ref WS_SECONDS_BULK_LOAD_RETRY
-        WS_MAX_REQUEST_ATTEMPTS : !Ref WS_MAX_REQUEST_ATTEMPTS
-        PIM_URL : !Ref PIM_URL
-        PIM_USERNAME : !Ref PIM_USERNAME
-        PIM_PASSWORD : !Ref PIM_PASSWORD
-        PIM_CLIENT_ID : !Ref PIM_CLIENT_ID
-        PIM_SECRET : !Ref PIM_SECRET
-        QUEUEE_URL : !Ref QUEUEE_URL
-        INTERV_TO_QUEUE: !Ref INTERV_TO_QUEUE
-        DEFAULT_STORE: !Ref DEFAULT_STORE #'{{resolve:ssm:DEFAULT_STORE:1}}'
+        WS_URL: '{{resolve:ssm:WS_URL:1}}'  
+        WS_USER : '{{resolve:ssm:WS_USER:1}}'  
+        WS_PASSWORD : '{{resolve:ssm:WS_PASSWORD:1}}'  
+        WS_SECONDS_BULK_LOAD_RETRY : '{{resolve:ssm:WS_SECONDS_BULK_LOAD_RETRY:1}}'  
+        WS_MAX_REQUEST_ATTEMPTS : '{{resolve:ssm:WS_MAX_REQUEST_ATTEMPTS:1}}'  
+        PIM_URL : '{{resolve:ssm:PIM_URL:1}}'  
+        PIM_USERNAME : '{{resolve:ssm:PIM_USERNAME:1}}'  
+        PIM_PASSWORD : '{{resolve:ssm:PIM_PASSWORD:1}}' 
+        PIM_CLIENT_ID : '{{resolve:ssm:PIM_CLIENT_ID:1}}' 
+        PIM_SECRET : '{{resolve:ssm:PIM_SECRET:1}}' 
+        QUEUEE_URL : '{{resolve:ssm:QUEUEE_URL:1}}'
+        INTERV_TO_QUEUE: '{{resolve:ssm:INTERV_TO_QUEUE:1}}'
+        DEFAULT_STORE: '{{resolve:ssm:DEFAULT_STORE:1}}'
 
 # Resources declares the AWS resources that you want to include in the stack
 # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html
