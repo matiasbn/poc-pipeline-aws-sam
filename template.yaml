@@ -59,7 +59,7 @@ Parameters:
     DEFAULT_STORE: 
         Description: 'Required. The Database username'
         Type: 'AWS::SSM::Parameter::Value<String>'
-        Default: '"{\"3001110001\":{\"center\":\"PC12\",\"venue\":\"ALPR\",\"org\":\"CL61\"},\"3001110003\":{\"center\":\"PC02\",\"venue\":\"ALPR\",\"org\":\"CL61\"},\"3001110008\":{\"center\":\"PC08\",\"venue\":\"ALPR\",\"org\":\"CL61\"}}"'
+        Default: '{\"3001110001\":{\"center\":\"PC12\",\"venue\":\"ALPR\",\"org\":\"CL61\"},\"3001110003\":{\"center\":\"PC02\",\"venue\":\"ALPR\",\"org\":\"CL61\"},\"3001110008\":{\"center\":\"PC08\",\"venue\":\"ALPR\",\"org\":\"CL61\"}}'
 # Transform section specifies one or more macros that AWS CloudFormation uses to process your template
 # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/transform-section-structure.html
 Transform:
