@@ -19,7 +19,7 @@ Globals:
         WS_SECONDS_BULK_LOAD_RETRY : '{{resolve:ssm:WS_SECONDS_BULK_LOAD_RETRY:1}}'  
         WS_MAX_REQUEST_ATTEMPTS : '{{resolve:ssm:WS_MAX_REQUEST_ATTEMPTS:1}}' 
         WS_USER : '{{resolve:ssm:WS_USER:1}}'
-        #DEFAULT_STORE: '{{resolve:ssm:DEFAULT_STORE:1}}'
+        DEFAULT_STORE: '{{resolve:ssm:DEFAULT_STORE:1}}'
         INTERV_TO_QUEUE: '{{resolve:ssm:INTERV_TO_QUEUE:1}}'  
         WS_URL: '{{resolve:secretsmanager:masisa-config:SecretString:WS_URL}}'
         WS_PASSWORD : '{{resolve:secretsmanager:masisa-config:SecretString:WS_PASSWORD}}'  
