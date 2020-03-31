@@ -16,7 +16,7 @@ Globals:
     Environment:
       Variables:
         # Make table name accessible as environment variable from function code during execution
-        WS_URL: '{{resolve:ssm-secure:WS_URL:1}}'
+        WS_URL: '{{resolve:secretsmanager:masisa-config:SecretString:WS_URL}}'
         # WS_USER : '{{resolve:ssm:WS_USER:1}}'  
         # WS_PASSWORD : '{{resolve:secretsmanager:masisa-config:SecretString:WS_PASSWORD}}'  
         # WS_SECONDS_BULK_LOAD_RETRY : '{{resolve:ssm:WS_SECONDS_BULK_LOAD_RETRY:1}}'  
