@@ -53,10 +53,10 @@ deployS3AwsScript: &deployS3AwsScript
 pipelines:    
   branches:
     develop:
-      #- <<: *infoStep
-      #- <<: *prepareStep
-      #- <<: *sonarStep
-      #- <<: *securityStep
+      - <<: *infoStep
+      - <<: *prepareStep
+      - <<: *sonarStep
+      - <<: *securityStep
      # - <<: *buildStep
       - <<: *deployS3AwsScript
     test:
