@@ -16,17 +16,17 @@ Globals:
     Environment:
       Variables:
         # Make table name accessible as environment variable from function code during execution
-        WS_URL: '{{resolve:secretsmanager:masisa-config:SecretString:WS_PASSWORD}}'  
+        WS_URL: '{{resolve::secretsmanager:masisa-config:SecretString:WS_URL:1}}'  
         WS_USER : '{{resolve:ssm:WS_USER:1}}'  
-        WS_PASSWORD : '{{resolve:secretsmanager:masisa-config:WS_PASSWORD:SecretString}}'  
+        WS_PASSWORD : '{{resolve:secretsmanager:masisa-config:SecretString:WS_PASSWORD}}'  
         WS_SECONDS_BULK_LOAD_RETRY : '{{resolve:ssm:WS_SECONDS_BULK_LOAD_RETRY:1}}'  
         WS_MAX_REQUEST_ATTEMPTS : '{{resolve:ssm:WS_MAX_REQUEST_ATTEMPTS:1}}'  
-        PIM_URL : '{{resolve:secretsmanager:masisa-config:SecretString:PIM_URL}}'  
-        PIM_USERNAME : '{{resolve:secretsmanager:masisa-config:SecretString:PIM_USERNAME}}'  
+        PIM_URL : '{{resolve:secretsmanager:masisa-config:SecretString:PIM_URL:1}}'  
+        PIM_USERNAME : '{{resolve:secretsmanager:masisa-config:SecretString:PIM_USERNAME:1}}'  
         PIM_PASSWORD : '{{resolve:secretsmanager:masisa-config:SecretString:PIM_PASSWORD}}' 
-        PIM_CLIENT_ID : '{{resolve:secretsmanager:masisa-config:SecretString:PIM_CLIENT_ID}}' 
-        PIM_SECRET : '{{resolve:secretsmanager:masisa-config:SecretString:PIM_SECRET}}' 
-        QUEUEE_URL : '{{resolve:secretsmanager:masisa-config:SecretString:QUEUEE_URL}}'
+        PIM_CLIENT_ID : '{{resolve:secretsmanager:masisa-config:SecretString:PIM_CLIENT_ID:1}}' 
+        PIM_SECRET : '{{resolve:secretsmanager:masisa-config:SecretString:PIM_SECRET:1}}' 
+        QUEUEE_URL : '{{resolve:ssm:QUEUEE_URL:1}}'
         INTERV_TO_QUEUE: '{{resolve:ssm:INTERV_TO_QUEUE:1}}'
         DEFAULT_STORE: '{{resolve:ssm:DEFAULT_STORE:1}}'
 
