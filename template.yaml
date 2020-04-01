@@ -50,6 +50,11 @@ Resources:
         # Give Lambda basic execution Permission to the helloFromLambda
         - AWSLambdaBasicExecutionRole
         - AWSLambdaVPCAccessExecutionRole
+      VpcConfig: 
+        SecurityGroupIds: 
+          - sg-08a565b4098dd806c
+        SubnetIds: 
+          - subnet-09539d33987fbe519
       Events:
         Api:
           Type: Api
@@ -99,6 +104,11 @@ Resources:
         # Give Lambda basic execution Permission to the helloFromLambda
         - AWSLambdaBasicExecutionRole
         - AWSLambdaVPCAccessExecutionRole
+      VpcConfig: 
+        SecurityGroupIds: 
+          - sg-08a565b4098dd806c
+        SubnetIds: 
+          - subnet-09539d33987fbe519
       #Environment:
        # Variables:
           # Make table name accessible as environment variable from function code during execution
@@ -125,6 +135,11 @@ Resources:
       Handler: src/handlers/get-stock-by-material-queue.getStockByMaterialQueueHandler
       # This property associates this Lambda function with the SQS queue defined above, so that whenever the queue
       # receives a message, the Lambda function is invoked
+      VpcConfig: 
+        SecurityGroupIds: 
+          - sg-08a565b4098dd806c
+        SubnetIds: 
+          - subnet-09539d33987fbe519
       Environment:
         Variables:
           WS_SECONDS_BULK_LOAD_RETRY : 10000
