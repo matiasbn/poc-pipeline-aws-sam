@@ -46,10 +46,10 @@ Resources:
       MemorySize: 128
       Timeout: 100
       Description: Get stock materials bulk.
-      #Policies:
-        # Give Create/Read/Update/Delete Permissions to the SampleTable
-        #- DynamoDBCrudPolicy:
-            #TableName: !Ref SampleTable
+      Policies:
+        # Give Lambda basic execution Permission to the helloFromLambda
+        - AWSLambdaBasicExecutionRole
+        - AWSLambdaVPCAccessExecutionRole
       Events:
         Api:
           Type: Api
@@ -68,10 +68,15 @@ Resources:
       MemorySize: 128
       Timeout: 100
       Description: A simple example includes a HTTP get method to get one item by id from a DynamoDB table.
-      # Policies:
-      #   # Give Create/Read/Update/Delete Permissions to the SampleTable
-      #   - DynamoDBCrudPolicy:
-      #       TableName: !Ref SampleTable
+      Policies:
+        # Give Lambda basic execution Permission to the helloFromLambda
+        - AWSLambdaBasicExecutionRole
+        - AWSLambdaVPCAccessExecutionRole
+      VpcConfig: 
+        SecurityGroupIds: 
+          - sg-08a565b4098dd806c
+        SubnetIds: 
+          - subnet-09539d33987fbe519
       Events:
         Api:
           Type: Api
@@ -90,10 +95,10 @@ Resources:
       MemorySize: 128
       Timeout: 100
       Description: A simple example includes a HTTP post method to add one item to a DynamoDB table.
-      #Policies:
-        # Give Create/Read/Update/Delete Permissions to the SampleTable
-        #- DynamoDBCrudPolicy:
-        #    TableName: !Ref SampleTable
+      Policies:
+        # Give Lambda basic execution Permission to the helloFromLambda
+        - AWSLambdaBasicExecutionRole
+        - AWSLambdaVPCAccessExecutionRole
       #Environment:
        # Variables:
           # Make table name accessible as environment variable from function code during execution
@@ -133,6 +138,7 @@ Resources:
       Policies:
         # Give Lambda basic execution Permission to the helloFromLambda
         - AWSLambdaBasicExecutionRole
+        - AWSLambdaVPCAccessExecutionRole
 
 Outputs:
   WebEndpoint:

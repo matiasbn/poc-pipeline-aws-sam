@@ -14,15 +14,15 @@ const sendMessage = (msg) => {
       MessageBody: JSON.stringify(msg),
       QueueUrl: queueUrl
     };
-    console.log(sqsParams)
+    console.info(sqsParams)
 
     sqs.sendMessage(sqsParams, function(err, data) {
       if (err) {
-        console.log('ERR', err);
+        console.info('ERR', err);
       }
-      console.log(data);
+      console.info(data);
     });
-    console.log('message sent')
+    console.info('message sent')
     //context.succeed('Exit');
 }
 
@@ -39,14 +39,14 @@ exports.getStockMaterialsQueueHandler = async (event, context) => {
       productsResult.push(defaultStore)
 
       if(productsResult.length === +process.env.INTERV_TO_QUEUE){
-        console.log("Material stock to enqueue", JSON.stringify(productsResult))
+        console.info("Material stock to enqueue", JSON.stringify(productsResult))
         sendMessage(productsResult)
         productsResult = []
       }
     }
 
     if(productsResult.length > 0){
-      console.log("send last block to queue", JSON.stringify(productsResult))
+      console.info("send last block to queue", JSON.stringify(productsResult))
       sendMessage(productsResult)
       productsResult = []
     }
