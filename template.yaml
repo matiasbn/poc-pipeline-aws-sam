@@ -28,7 +28,9 @@ Globals:
         PIM_PASSWORD : '{{resolve:secretsmanager:masisa-config:SecretString:PIM_PASSWORD}}' 
         PIM_CLIENT_ID : '{{resolve:secretsmanager:masisa-config:SecretString:PIM_CLIENT_ID}}' 
         PIM_SECRET : '{{resolve:secretsmanager:masisa-config:SecretString:PIM_SECRET}}' 
-        QUEUEE_URL : '{{resolve:secretsmanager:masisa-config:SecretString:QUEUEE_URL}}' 
+        QUEUEE_URL : '{{resolve:secretsmanager:masisa-config:SecretString:QUEUEE_URL}}'
+        REDIS_URL : '{{resolve:secretsmanager:masisa-config:SecretString:REDIS_URL}}'
+        REDIS_PORT : '{{resolve:secretsmanager:masisa-config:SecretString:REDIS_PORT}}'
 
 
 # Resources declares the AWS resources that you want to include in the stack

@@ -7,6 +7,7 @@
         "aws-sdk": "^2.638.0",
         "axios": "^0.19.2",
         "moment": "^2.24.0",
+        "redis": "^3.0.2",
         "strong-soap": "^1.22.1"
     },
     "devDependencies": {

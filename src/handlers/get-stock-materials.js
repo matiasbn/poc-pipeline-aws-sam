@@ -8,11 +8,13 @@ const setResponse = (state, message) => {
     products = require("../services/materials/pim.services"),
     productsSoap = require("../services/materials/soap.services"),
     { login } = require("../services/soap/client.service"),
+    { getMaterial } = require("../services/materials/main"),
+    { productKey, connectClient, putProduct } = require("../services/db/redis/redis"),
     defaultStores = process.env.DEFAULT_STORE ? JSON.parse(process.env.DEFAULT_STORE) : {};
 
-let productsResult = []
+let productsResult = [], productObject, keyObject
 
-console.log("Loading")
+console.info("Loading")
 
 /**
  * Get Materials Stock from SOAP AND PIM
@@ -22,14 +24,12 @@ exports.getStockMaterialsHandler = async (event) => {
     console.log("Init date", date)
     console.log("Into getStockMaterialsHandler")
     try {
+        //Redis connection
+        await connectClient()
         //PIM
-        await products.authWithPassword().catch((e) => {
-            return setResponse(400, e);
-        });
+        await products.authWithPassword()
         //SOAP
-        const token = await login(process.env.WS_USER, process.env.WS_PASSWORD).catch((e) => {
-            return setResponse(400, e);
-        })
+        const token = await login(process.env.WS_USER, process.env.WS_PASSWORD)
         const skusByStore = await products.getMaterialsByStore();
         //TODO: only for tes with the first store
         const stores = Object.keys(skusByStore)
@@ -45,6 +45,10 @@ exports.getStockMaterialsHandler = async (event) => {
                         console.log("Product SAP", productDesc)
                         return setResponse(400, productDesc);
                     }
+
+                    keyObject = productKey(store, productDesc.NumeroMaterial)
+                    productObject = getMaterial(productDesc)
+                    putProduct(keyObject, productObject)
 
                     productsResult.push(productDesc)
                 } 
