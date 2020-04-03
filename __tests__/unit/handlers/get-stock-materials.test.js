@@ -5,10 +5,10 @@ const lambda = require('../../../src/handlers/get-stock-materials.js');
 describe('Test putItemHandler', function () {  
     // This test invokes putItemHandler() and compare the result  
     it('should get stock materials bulk', async () => { 
-        const event = { 
+        /* const event = { 
             httpMethod: 'GET', 
             body: '' 
-        }; 
+        };  */
 
         const result =  { 
             statusCode: 200, 

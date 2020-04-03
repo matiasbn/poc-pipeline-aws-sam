@@ -32,6 +32,11 @@ exports.getStockByMaterialQueueHandler = async (event) => {
                   console.log("Product SAP", productDesc)
                   return setResponse(400, productDesc);
               }
+
+              //TODO: Check where is the store?
+              keyObject = productKey(store, productDesc.NumeroMaterial)
+              productObject = getMaterial(productDesc)
+              putProduct(keyObject, productObject)
               productsResult.push(productDesc)
       }
       response = {

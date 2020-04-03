@@ -12,9 +12,9 @@ describe('Test getStockMaterialsHandler', () => {
     it('should return ids', async () => { 
         const items = [{ id: 'id1' }, { id: 'id2' }];  
  
-        const event = { 
-            httpMethod: 'GET' 
-        }
+        // const event = { 
+        //     httpMethod: 'GET' 
+        // }
  
         const expectedResult = { 
             statusCode: 200, 
