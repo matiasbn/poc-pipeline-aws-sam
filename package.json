@@ -6,11 +6,18 @@
     "dependencies": {
         "aws-sdk": "^2.638.0",
         "axios": "^0.19.2",
+        "debug": "^4.1.1",
         "moment": "^2.24.0",
+        "pino": "^6.1.1",
+        "pino-pretty": "^4.0.0",
         "redis": "^3.0.2",
         "strong-soap": "^1.22.1"
     },
     "devDependencies": {
+        "eslint": "^6.8.0",
+        "eslint-config-airbnb-base": "^14.1.0",
+        "eslint-plugin-import": "^2.20.2",
+        "eslint-plugin-sort-requires": "^2.1.0",
         "jest": "^25.2.2"
     },
     "scripts": {
