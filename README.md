@@ -4,7 +4,7 @@ This project contains source code and supporting files for a serverless applicat
 
 - `src` - Code for the application's Lambda function.
 - `events` - Invocation events that you can use to invoke the function.
-- `__tests__` - Unit tests for the application code. 
+- `tests` - Unit tests for the application code. 
 - `template.yml` - A template that defines the application's AWS resources.
 
 The application uses several AWS resources, including Lambda functions, an API Gateway API, and Amazon DynamoDB tables. These resources are defined in the `template.yml` file in this project. You can update the template to add AWS resources through the same deployment process that updates your application code.
