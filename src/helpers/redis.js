@@ -1,3 +1,6 @@
+const path = require('path');
+const debug = require('debug')(`${process.env.DEBUG_NAMESPACE}::helpers::${path.basename(__filename)}`);
+
 const redis = require('redis');
 
 const port = process.env.REDIS_PORT;
@@ -8,12 +11,12 @@ const client = redis.createClient(port, host);
 const productKey = (store, product) => `PS:${store}:${product}`;
 const connectClient = () => new Promise((resolve, reject) => {
   client.on('connect', () => {
-    console.info('redis connected');
+    debug('redis connected');
     resolve();
   });
 
   client.on('error', (err) => {
-    console.info('redis connected error!');
+    debug('redis connected error!');
     reject(err);
   });
 });

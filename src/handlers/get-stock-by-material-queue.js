@@ -1,5 +1,8 @@
+const path = require('path');
+const debug = require('debug')(`${process.env.DEBUG_NAMESPACE}::handlers::${path.basename(__filename)}`);
 const productsSoap = require('../helpers/soap');
 const { login } = require('../helpers/client');
+
 
 const productsResult = [];
 const setResponse = (state, message) => ({
@@ -18,35 +21,35 @@ exports.getStockByMaterialQueueHandler = async (event) => {
           message: 'Material Stock not found.',
         }),
       };
-      console.info(response);
+      debug(response);
     }
 
     // SOAP
     const token = await login().catch((e) => setResponse(400, e));
-    const materialPromises = event.products
-      .map((material) => productsSoap.pimMaterialsStock({ ...material, token }));
+    // const materialPromises = event.products
+    //   .map((material) => productsSoap.pimMaterialsStock({ ...material, token }));
 
-    // for (const material of event.products) {
-    //   const productDesc = await productsSoap.pimMaterialsStock({ ...material, token });
+    for (const material of event.products) {
+      const productDesc = await productsSoap.pimMaterialsStock({ ...material, token });
 
-    //   if (!productDesc || productDesc.Cod_Msj === '401') {
-    //     console.log('Product SAP', productDesc);
-    //     return setResponse(400, productDesc);
-    //   }
+      if (!productDesc || productDesc.Cod_Msj === '401') {
+        debug('Product SAP', productDesc);
+        return setResponse(400, productDesc);
+      }
 
-    //   // TODO: Check where is the store?
-    //   keyObject = productKey(store, productDesc.NumeroMaterial);
-    //   productObject = getMaterial(productDesc);
-    //   putProduct(keyObject, productObject);
-    //   productsResult.push(productDesc);
-    // }
+      // TODO: Check where is the store?
+      keyObject = productKey(store, productDesc.NumeroMaterial);
+      productObject = getMaterial(productDesc);
+      putProduct(keyObject, productObject);
+      productsResult.push(productDesc);
+    }
     response = {
       statusCode: 200,
       body: JSON.stringify({
         message: productsResult,
       }),
     };
-    console.info(response);
+    debug(response);
     return response;
   } catch (e) {
     response = {
@@ -55,7 +58,7 @@ exports.getStockByMaterialQueueHandler = async (event) => {
         message: { error: 'Exception was happend.', message: e },
       }),
     };
-    console.info(response);
+    debug(response);
     return response;
   }
 };

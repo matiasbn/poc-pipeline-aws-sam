@@ -1,3 +1,6 @@
+const path = require('path');
+const debug = require('debug')(`${process.env.DEBUG_NAMESPACE}::handlers::${path.basename(__filename)}`);
+
 // Create clients and set shared const values outside of the handler.
 const setResponse = (state, message) => ({
   statusCode: state,
@@ -14,15 +17,15 @@ const defaultStores = process.env.DEFAULT_STORE ? JSON.parse(process.env.DEFAULT
 const productsResult = []; let productObject; let
   keyObject;
 
-console.info('Loading');
+debug('Loading');
 
 /**
  * Get Materials Stock from SOAP AND PIM
  */
 exports.getStockMaterialsHandler = async (event) => {
   const date = new Date();
-  console.log('Init date', date);
-  console.log('Into getStockMaterialsHandler');
+  debug('Init date', date);
+  debug('Into getStockMaterialsHandler');
   try {
     // Redis connection
     await connectClient();
@@ -42,7 +45,7 @@ exports.getStockMaterialsHandler = async (event) => {
           const productDesc = await productsSoap.pimMaterialsStock(defaultStore);
 
           if (!productDesc || productDesc.Cod_Msj === '401') {
-            console.log('Product SAP', productDesc);
+            debug('Product SAP', productDesc);
             return setResponse(400, productDesc);
           }
 
@@ -57,7 +60,7 @@ exports.getStockMaterialsHandler = async (event) => {
 
     const diff = new Date() - date;
     const time = (diff / 1000) / 60;
-    console.log('Process time', time);
+    debug('Process time', time);
     return setResponse(200, { materials: productsResult, time });
   } catch (err) {
     return setResponse(400, err);

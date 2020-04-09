@@ -1,3 +1,6 @@
+const path = require('path');
+const debug = require('debug')(`${process.env.DEBUG_NAMESPACE}::handlers::${path.basename(__filename)}`);
+
 const AWS = require('aws-sdk');
 
 const queueUrl = process.env.QUEUEE_URL;
@@ -8,15 +11,15 @@ const sendMessage = (msg) => {
     MessageBody: JSON.stringify(msg),
     QueueUrl: queueUrl,
   };
-  console.info(sqsParams);
+  debug(sqsParams);
 
   sqs.sendMessage(sqsParams, (err, data) => {
     if (err) {
-      console.info('ERR', err);
+      debug('ERR', err);
     }
-    console.info(data);
+    debug(data);
   });
-  console.info('message sent');
+  debug('message sent');
   // context.succeed('Exit');
 };
 

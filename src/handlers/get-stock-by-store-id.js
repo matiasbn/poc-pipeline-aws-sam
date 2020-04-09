@@ -1,3 +1,6 @@
+const path = require('path');
+const debug = require('debug')(`${process.env.DEBUG_NAMESPACE}::handlers::${path.basename(__filename)}`);
+
 const setResponse = (state, message) => ({
   statusCode: state,
   body: typeof (message) === 'string' ? message : JSON.stringify(message),
@@ -10,20 +13,20 @@ const defaultStores = process.env.DEFAULT_STORE ? JSON.parse(process.env.DEFAULT
 
 const productsResult = [];
 
-console.log('Loading');
+debug('Loading');
 
 /**
  * Get Materials Stock from SOAP AND PIM one Store.
  */
 exports.getStockByStoreIdHandler = async (event) => {
   const date = new Date();
-  console.info('Init date', date);
-  console.info('Into getStockByStoreIdHandler');
+  debug('Init date', date);
+  debug('Into getStockByStoreIdHandler');
   if (event.httpMethod !== 'GET') {
     throw new Error(`getMethod only accept GET method, you tried: ${event.httpMethod}`);
   }
   // All log statements are written to CloudWatch
-  console.info('received:', event);
+  debug('received:', event);
 
   // Get store from pathParameters from APIGateway because of `/{store}` at template.yml
   const { store } = event.pathParameters;
@@ -42,7 +45,7 @@ exports.getStockByStoreIdHandler = async (event) => {
         const productDesc = await productsSoap.pimMaterialsStock(defaultStore);
 
         if (!productDesc || productDesc.Cod_Msj === '401') {
-          console.log('Product SAP', productDesc);
+          debug('Product SAP', productDesc);
           return setResponse(400, productDesc);
         }
 
@@ -61,6 +64,6 @@ exports.getStockByStoreIdHandler = async (event) => {
   }
   /*
     // All log statements are written to CloudWatch
-    console.info(`response from: ${event.path} statusCode: ${response.statusCode} body: ${response.body}`);
+    debug(`response from: ${event.path} statusCode: ${response.statusCode} body: ${response.body}`);
     return response; */
 };

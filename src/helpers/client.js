@@ -1,3 +1,6 @@
+const path = require('path');
+const debug = require('debug')(`${process.env.DEBUG_NAMESPACE}::helpers::${path.basename(__filename)}`);
+
 const { soap } = require('strong-soap');
 
 const timeout = 5 * 60 * 1000; // 5 minutes
@@ -69,7 +72,7 @@ const login = async () => {
         if (error) {
           reject(error);
         } else {
-          console.log(result.LoginResult.Token);
+          debug(result.LoginResult.Token);
           resolve(result.LoginResult.Token);
         }
       },

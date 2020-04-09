@@ -28,14 +28,14 @@ exports.getStockMaterialsQueueHandler = async (event, context) => {
       productsResult.push(defaultStore);
 
       if (productsResult.length === +process.env.INTERV_TO_QUEUE) {
-        console.info('Material stock to enqueue', JSON.stringify(productsResult));
+        debug('Material stock to enqueue', JSON.stringify(productsResult));
         sendMessage(productsResult);
         productsResult = [];
       }
     }
 
     if (productsResult.length > 0) {
-      console.info('send last block to queue', JSON.stringify(productsResult));
+      debug('send last block to queue', JSON.stringify(productsResult));
       sendMessage(productsResult);
       productsResult = [];
     }
