@@ -29,7 +29,7 @@ securityStep: &securityStep
       script:
         - npm install npm@latest -g
         - npm audit --only=prod && npm audit fix
-        - NODE_ENV='cicd'; npm run test
+        - npm run test
 buildStep: &buildStep
   - step:
       name: Build
