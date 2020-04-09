@@ -51,7 +51,6 @@ const getMaterialsBySKU = async (store, sku) => {
     const result = await axios
       .get(`${pimUrl}/api/rest/v1/products/${sku}`,
         { headers: { Authorization: `Bearer ${pim.token}` } });
-
     if (result.data && result.data.values) {
       const filterStore = `sku_${store}`;
       const valStore = Object.keys(result.data.values).find((x) => x.includes(filterStore));
@@ -87,8 +86,7 @@ const getMaterialsByStore = async () => {
       for (let i = 0; i < allItems.length; i++) {
         if (allItems[i].values) {
           const regexStore = /sku_[0-9]+/gm;
-          const listStores = Object.keys(allItems[i].values)
-            .filter((item) => item.match(regexStore));
+          const listStores = Object.keys(allItems[i].values).filter((item) => item.match(regexStore));
 
           if (listStores.length > 0) {
             listStores.forEach((store) => {

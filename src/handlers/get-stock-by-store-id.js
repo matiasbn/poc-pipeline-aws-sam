@@ -4,7 +4,7 @@ const setResponse = (state, message) => ({
 });
 const products = require('../helpers/pim');
 const productsSoap = require('../helpers/soap');
-const { login } = require('../helpers/client.service');
+const { login } = require('../helpers/client');
 
 const defaultStores = process.env.DEFAULT_STORE ? JSON.parse(process.env.DEFAULT_STORE) : {};
 

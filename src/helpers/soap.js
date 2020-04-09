@@ -1,4 +1,4 @@
-const soap = require('../soap/client.service');
+const soap = require('./client');
 
 const materialsStock = (token, sku, center, venue, org) => {
   try {
