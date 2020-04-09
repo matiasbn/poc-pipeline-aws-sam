@@ -2,7 +2,7 @@
   "testEnvironment": "node",
   "verbose": true,
   "setupFiles": [
-    "./test/config/dev.config.js"
+    "./__test__/config/dev.config.js"
   ],
   "coveragePathIgnorePatterns": [
     "/node_modules/",
