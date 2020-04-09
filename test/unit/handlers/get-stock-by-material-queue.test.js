@@ -5,7 +5,6 @@ const lambda = require('../../../src/handlers/get-stock-by-material-queue.js');
 describe('Test getStockMaterialsHandler', () => {
   it('should return ids', async () => {
     const items = [{ id: 'id1' }, { id: 'id2' }];
-    lambda();
     /*  const event = {
             httpMethod: 'GET'
         } */

@@ -28,4 +28,19 @@ describe('pim helper unit testing', () => {
       .some((isNotNumber) => isNotNumber !== false);
     expect(someValuesAreNotNumbers).toBe(false);
   });
+
+  test('getMaterialsBySKU should return an object with correct fields', async () => {
+    // Increase jest timeout
+    jest.setTimeout(30000);
+    const result = await authWithPassword();
+    const { data: { access_token } } = result;
+    expect(access_token).not.toBe(undefined);
+    // const materials = await getMaterialsByStore();
+    // // pick any store
+    // const storeId = Object.keys(materials)[0];
+    // const store = materials[`${storeId}`];
+    // debug(store);
+    // const material = await getMaterialsBySKU(storeId, store[0]);
+    // debug(material);
+  });
 });

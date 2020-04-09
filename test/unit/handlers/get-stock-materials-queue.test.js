@@ -1,9 +1,8 @@
-const lambda = require('../../helpers/get-lambda-handler')(__filename);
+const lambda = require('../../test-helpers/get-lambda-handler')(__filename);
 
 // This includes all tests for getStockMaterialsHandler()
 describe('Test getStockMaterialsHandler', () => {
   it('should return ids', async () => {
-    lambda();
     const items = [{ id: 'id1' }, { id: 'id2' }];
     /*  const event = {
             httpMethod: 'GET'
