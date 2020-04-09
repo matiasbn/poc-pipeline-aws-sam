@@ -13,6 +13,8 @@ prepareStep: &prepareStep
         - npm install
       artifacts:
         - node_modules/**
+      caches:
+        - node
 sonarStep: &sonarStep
   - step:
       name: Sonar Scanner
