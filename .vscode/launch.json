@@ -7,7 +7,7 @@
             "request": "attach",
             "address": "localhost",
             "port": 5858,
-            "localRoot": "${workspaceRoot}",
+            "localRoot": "${workspaceRoot}/.aws-sam/build",
             "remoteRoot": "/var/task",
             "protocol": "inspector",
             "stopOnEntry": false

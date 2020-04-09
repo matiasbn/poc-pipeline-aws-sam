@@ -25,16 +25,21 @@
         "jest": "^25.2.7"
     },
     "scripts": {
-        "test": "jest",
+        "test": "jest ",
         "test:coverage": "jest --collectCoverage",
-        "test:verbose": "jest --watch --verbose",
+        "test:verbose": "jest --watch --verbose --detectOpenHandles",
         "test:verbose:debug": "DEBUG='Masisa::test*' npm run test:verbose",
-        "test:verbose:debug:specific": "DEBUG='Masisa::test*' npm run test:verbose get-stock-materials-queue.test.js"
+        "test:verbose:debug:specific": "DEBUG='Masisa::test*' npm run test:verbose pim.helpers.test.js"
     },
     "jest": {
         "testEnvironment": "node",
         "coveragePathIgnorePatterns": [
-            "/node_modules/"
+            "/node_modules/",
+            "/.aws-sam/"
+        ],
+        "modulePathIgnorePatterns": [
+            "/node_modules/",
+            "/.aws-sam/"
         ],
         "setupFiles": [
             "./test/config/jest.config.js"

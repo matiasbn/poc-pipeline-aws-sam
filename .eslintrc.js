@@ -17,7 +17,12 @@ module.exports = {
   },
   rules: {
     "one-var": ["error", "never"],
-    "sort-requires/sort-requires": 2
+    "no-underscore-dangle": 0,
+    "no-plusplus": 0,
+    "import/no-dynamic-require": 0,
+    "global-require": 0,
+    "func-names": 0,
+    "camelcase": 0
   },
   plugins: [
     "sort-requires"
