@@ -25,7 +25,7 @@
         "jest": "^25.2.7"
     },
     "scripts": {
-        "test": "jest",
+        "test": "jest --config jest.cicd.config.json",
         "test:dev": "jest --config jest.dev.config.json",
         "test:specific": "jest --config jest.dev.config.json --watch pim.helpers.test.js"
     }

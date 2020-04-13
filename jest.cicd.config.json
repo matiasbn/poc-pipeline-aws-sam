@@ -1,11 +1,8 @@
 {
   "testEnvironment": "node",
   "verbose": true,
-  "setupFiles": [
-    "./__tests__/config/dev.config.js"
-  ],
   "roots": [
-    "__tests__/unit"
+    "__tests__/unit/handlers"
   ],
   "coveragePathIgnorePatterns": [
     "/node_modules/",
